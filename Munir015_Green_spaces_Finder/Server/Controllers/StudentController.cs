@@ -18,7 +18,7 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
             _context = context;
         }
 
-        // GET api/<ReviewController>
+        // GET api/<StudentController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
@@ -26,15 +26,15 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
             return await _context.Students.ToListAsync();
         }
 
-        // GET api/<ReviewController>/id
+        // GET api/<StudentController>/id
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            // Find a review by its ID in the database
-            var review = await _context.Reviews.FindAsync(id);
+           ]
+            var review = await _context.Students.FindAsync(id);
 
             // Check if the review with the specified ID exists
-            if (review == null)
+            if (student == null)
             {
                 return NotFound(); // Return a 404 Not Found response if the review is not found
             }
@@ -42,19 +42,19 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
             return Student; // Return the found review
         }
 
-        // POST api/<ReviewController>
+        // POST api/<StudentController>
         [HttpPost]
         public async Task<ActionResult<Student>> PostReview(Student student)
         {
             // Add a new review to the database
-            _context.Reviews.Add(student);
+            _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
             // Return a 201 Created response with the details of the newly created review
             return CreatedAtAction(nameof(GetStudent), new { id = student.sid }, student);
         }
 
-        // PUT api/<ReviewController>/id
+        // PUT api/<StudentController>/id
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(int id, Student student
             )
@@ -65,7 +65,7 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
                 return BadRequest(); // Return a 400 Bad Request response if the IDs do not match
             }
 
-            // Mark the review entity as modified and update it in the database
+            
             _context.Entry(student).State = EntityState.Modified;
 
             try
