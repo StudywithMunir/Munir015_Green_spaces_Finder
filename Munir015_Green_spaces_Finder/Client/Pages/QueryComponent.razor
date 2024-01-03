@@ -87,7 +87,7 @@
                          }).ToList();
 
         adtquery4 = (from s in _db.std
-                     where s.marks > 0
+                     where s.marks > 50
                      select new Student
                          {
                              sname = s.sname
