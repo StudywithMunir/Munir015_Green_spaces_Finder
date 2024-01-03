@@ -22,6 +22,21 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CourseStudent", b =>
+                {
+                    b.Property<int>("courssescid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("studentssid")
+                        .HasColumnType("int");
+
+                    b.HasKey("courssescid", "studentssid");
+
+                    b.HasIndex("studentssid");
+
+                    b.ToTable("CourseStudent");
+                });
+
             modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Admin", b =>
                 {
                     b.Property<int>("AdminId")
@@ -45,6 +60,48 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                     b.HasKey("AdminId");
 
                     b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Course", b =>
+                {
+                    b.Property<int>("cid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cid"));
+
+                    b.Property<int>("facultyfid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("marks")
+                        .HasColumnType("int");
+
+                    b.HasKey("cid");
+
+                    b.HasIndex("facultyfid");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Faculty", b =>
+                {
+                    b.Property<int>("fid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("fid"));
+
+                    b.Property<string>("fname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("standing")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("fid");
+
+                    b.ToTable("Faculties");
                 });
 
             modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.GreenSpace", b =>
@@ -170,6 +227,34 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                     b.ToTable("SearchHistories");
                 });
 
+            modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Student", b =>
+                {
+                    b.Property<int>("sid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("sid"));
+
+                    b.Property<int>("age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("major")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("marks")
+                        .HasColumnType("int");
+
+                    b.Property<string>("sname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("standing")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("sid");
+
+                    b.ToTable("Students");
+                });
+
             modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -223,6 +308,32 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserFavorites");
+                });
+
+            modelBuilder.Entity("CourseStudent", b =>
+                {
+                    b.HasOne("Munir015_Green_spaces_Finder.Shared.Course", null)
+                        .WithMany()
+                        .HasForeignKey("courssescid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Munir015_Green_spaces_Finder.Shared.Student", null)
+                        .WithMany()
+                        .HasForeignKey("studentssid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Course", b =>
+                {
+                    b.HasOne("Munir015_Green_spaces_Finder.Shared.Faculty", "faculty")
+                        .WithMany("courssses")
+                        .HasForeignKey("facultyfid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("faculty");
                 });
 
             modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Notification", b =>
@@ -287,6 +398,11 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                     b.Navigation("GreenSpace");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.Faculty", b =>
+                {
+                    b.Navigation("courssses");
                 });
 
             modelBuilder.Entity("Munir015_Green_spaces_Finder.Shared.GreenSpace", b =>

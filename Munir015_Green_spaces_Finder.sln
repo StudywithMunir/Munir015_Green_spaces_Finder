@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munir015_Green_spaces_Finder.Server", "Munir015_Green_spaces_Finder\Server\Munir015_Green_spaces_Finder.Server.csproj", "{5FA67A52-216D-4668-9243-9AAAD094E893}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Munir015_Green_spaces_Finder.Server", "Munir015_Green_spaces_Finder\Server\Munir015_Green_spaces_Finder.Server.csproj", "{5FA67A52-216D-4668-9243-9AAAD094E893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munir015_Green_spaces_Finder.Client", "Munir015_Green_spaces_Finder\Client\Munir015_Green_spaces_Finder.Client.csproj", "{A45D706D-46FB-44B4-B455-0B9B699141FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Munir015_Green_spaces_Finder.Client", "Munir015_Green_spaces_Finder\Client\Munir015_Green_spaces_Finder.Client.csproj", "{A45D706D-46FB-44B4-B455-0B9B699141FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Munir015_Green_spaces_Finder.Shared", "Munir015_Green_spaces_Finder\Shared\Munir015_Green_spaces_Finder.Shared.csproj", "{EF9CEAFB-F0A8-4F57-9942-6ABAD42826B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Munir015_Green_spaces_Finder.Shared", "Munir015_Green_spaces_Finder\Shared\Munir015_Green_spaces_Finder.Shared.csproj", "{EF9CEAFB-F0A8-4F57-9942-6ABAD42826B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

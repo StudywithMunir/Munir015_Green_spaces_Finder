@@ -1,0 +1,61 @@
+﻿@page "/addstudent"
+@using Munir015_Green_spaces_Finder.Shared
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+
+<h3>Student Form</h3>
+
+<EditForm Model="@student" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label for="name">Name:</label>
+    <InputText id="name" @bind-Value="student.sname" class="form-control" />
+    <br />
+    <label for="major">Major:</label>
+    <InputText id="major" @bind-Value="student.major" class="form-control" />
+    <br />
+    <label for="standing">Standing:</label>
+    <InputText id="standing" @bind-Value="student.standing" class="form-control" />
+    <br />
+    <label for="age">Age:</label>
+    <InputNumber id="age" @bind-Value="student.age" class="form-control" />
+    <br />
+    <label for="marks">Marks:</label>
+    <InputNumber id="marks" @bind-Value="student.marks" class="form-control" />
+    <br />
+    <button type="submit">Save</button>
+</EditForm>
+
+<table>
+    <tbody>
+        @foreach (var currentStudent in student)
+        {
+            <tr>
+                <td>@currentStudent.sname</td>
+                <td>@currentStudent.major</td>
+                <td>@currentStudent.standing</td>
+                <td>@currentStudent.age</td>
+                <td>@currentStudent.marks</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private Student student = new Student();
+
+    private async Task HandleSubmit()
+    {
+        var response = await Http.PostAsJsonAsync("api/student", student);
+
+        if (response.IsSuccessStatusCode)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Data saved successfully!");
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Error saving data");
+        }
+    }
+}

@@ -7,28 +7,28 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ReviewController : ControllerBase
+    public class StudentController : ControllerBase
     {
         // Database context for handling reviews
         private readonly AppDbContext _context;
 
         // Constructor to inject the database context
-        public ReviewController(AppDbContext context)
+        public StudentController(AppDbContext context)
         {
             _context = context;
         }
 
         // GET api/<ReviewController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
             // Retrieve all reviews asynchronously from the database
-            return await _context.Reviews.ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
         // GET api/<ReviewController>/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Review>> GetReview(int id)
+        public async Task<ActionResult<Student>> GetStudent(int id)
         {
             // Find a review by its ID in the database
             var review = await _context.Reviews.FindAsync(id);
@@ -39,33 +39,34 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
                 return NotFound(); // Return a 404 Not Found response if the review is not found
             }
 
-            return review; // Return the found review
+            return Student; // Return the found review
         }
 
         // POST api/<ReviewController>
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review review)
+        public async Task<ActionResult<Student>> PostReview(Student student)
         {
             // Add a new review to the database
-            _context.Reviews.Add(review);
+            _context.Reviews.Add(student);
             await _context.SaveChangesAsync();
 
             // Return a 201 Created response with the details of the newly created review
-            return CreatedAtAction(nameof(GetReview), new { id = review.ReviewId }, review);
+            return CreatedAtAction(nameof(GetStudent), new { id = student.sid }, student);
         }
 
         // PUT api/<ReviewController>/id
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReview(int id, Review review)
+        public async Task<IActionResult> PutStudent(int id, Student student
+            )
         {
             // Check if the provided ID matches the review's ID
-            if (id != review.ReviewId)
+            if (id != student.sid)
             {
                 return BadRequest(); // Return a 400 Bad Request response if the IDs do not match
             }
 
             // Mark the review entity as modified and update it in the database
-            _context.Entry(review).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
 
             try
             {
@@ -74,7 +75,7 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 // Handle concurrency conflicts
-                if (!ReviewExists(id))
+                if (!StudentExists(id))
                 {
                     return NotFound(); // Return a 404 Not Found response if the review is not found
                 }
@@ -89,28 +90,28 @@ namespace Munir015_Green_spaces_Finder.Server.Controllers
 
         // DELETE api/<ReviewController>/id
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReview(int id)
+        public async Task<IActionResult> DeleteStudent(int id)
         {
             // Find a review by its ID in the database
-            var review = await _context.Reviews.FindAsync(id);
+            var student = await _context.Student.FindAsync(id);
 
             // Check if the review with the specified ID exists
-            if (review == null)
+            if (student == null)
             {
                 return NotFound(); // Return a 404 Not Found response if the review is not found
             }
 
             // Remove the review from the database and save changes
-            _context.Reviews.Remove(review);
+            _context.Reviews.Remove(student);
             await _context.SaveChangesAsync();
 
             return NoContent(); // Return a 204 No Content response on successful deletion
         }
 
         // Helper method to check if a review with a given ID exists
-        private bool ReviewExists(int id)
+        private bool StudentExists(int id)
         {
-            return _context.Reviews.Any(e => e.ReviewId == id);
+            return _context.Student.Any(e => e.sid == id);
         }
     }
 }

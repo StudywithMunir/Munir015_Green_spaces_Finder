@@ -27,6 +27,20 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Faculties",
+                columns: table => new
+                {
+                    fid = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    fname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    standing = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Faculties", x => x.fid);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GreenSpaces",
                 columns: table => new
                 {
@@ -44,6 +58,23 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    sid = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    sname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    major = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    standing = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    age = table.Column<int>(type: "int", nullable: false),
+                    marks = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.sid);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -57,6 +88,26 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    cid = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    marks = table.Column<int>(type: "int", nullable: false),
+                    facultyfid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.cid);
+                    table.ForeignKey(
+                        name: "FK_Courses_Faculties_facultyfid",
+                        column: x => x.facultyfid,
+                        principalTable: "Faculties",
+                        principalColumn: "fid",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -164,6 +215,40 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CourseStudent",
+                columns: table => new
+                {
+                    courssescid = table.Column<int>(type: "int", nullable: false),
+                    studentssid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseStudent", x => new { x.courssescid, x.studentssid });
+                    table.ForeignKey(
+                        name: "FK_CourseStudent_Courses_courssescid",
+                        column: x => x.courssescid,
+                        principalTable: "Courses",
+                        principalColumn: "cid",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseStudent_Students_studentssid",
+                        column: x => x.studentssid,
+                        principalTable: "Students",
+                        principalColumn: "sid",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_facultyfid",
+                table: "Courses",
+                column: "facultyfid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseStudent_studentssid",
+                table: "CourseStudent",
+                column: "studentssid");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_UserId",
                 table: "Notifications",
@@ -207,6 +292,9 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
+                name: "CourseStudent");
+
+            migrationBuilder.DropTable(
                 name: "Notifications");
 
             migrationBuilder.DropTable(
@@ -219,10 +307,19 @@ namespace Munir015_Green_spaces_Finder.Server.Migrations
                 name: "UserFavorites");
 
             migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Students");
+
+            migrationBuilder.DropTable(
                 name: "GreenSpaces");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Faculties");
         }
     }
 }

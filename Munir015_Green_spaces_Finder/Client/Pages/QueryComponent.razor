@@ -1,0 +1,102 @@
+﻿@page "/query"
+@using Microsoft.EntityFrameworkCore;
+@using Munir015_Green_spaces_Finder.Shared
+@inject StudentDbContext _db
+
+
+
+
+<h4>Additional-Query 2: Retrieve the names of students who are enrolled in classes and recieved marks  less than 50.</h4>
+<div class="query-container">
+    <ul class="result-list">
+        @foreach (var item in adtquery2)
+        {
+            <li class="result-item">
+                @item.sname
+            </li>
+        }
+    </ul>
+</div>
+
+<h4>Additional-Query 2: Retrieve the names of students who are enrolled in classes and recieved marks between 50 and 85.</h4>
+<div class="query-container">
+    <ul class="result-list">
+        @foreach (var item in adtquery3)
+        {
+            <li class="result-item">
+                @item.sname
+            </li>
+        }
+    </ul>
+</div>
+
+<h4>Additional-Query 2: Retrieve the names of students who are enrolled in classes and recieved marks greater than 85.</h4>
+<div class="query-container">
+    <ul class="result-list">
+        @foreach (var item in adtquery4)
+        {
+            <li class="result-item">
+                @item.sname
+            </li>
+        }
+    </ul>
+</div>
+
+<h3>Additional-Query 3: Find the average age of students in each major. Display the major and the average age.</h3>
+<div class="query-container">
+    <ul class="result-list">
+        @foreach (var item in adtquery3)
+        {
+            <li class="result-item">
+                Major: @item.Major - Average Age: @item.AverageAge
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    List<Student> query2 = new List<Student>();
+    List<Student> adtquery2 = new List<Student>();
+    List<Student> adtquery3 = new List<Student>();
+    List<Student> adtquery4 = new List<Student>();
+
+    protected override void OnInitialized()
+    {
+        LoadQuery();
+    }
+
+    void LoadQuery()
+    {
+        
+
+
+
+
+        adtquery2 = (from s in _db.std
+                     where s.marks < 50
+                     select new Student
+                         {
+                             sname = s.sname
+                         }).ToList();
+
+        adtquery3 = (from s in _db.std
+                     where s.marks < 50 and s.marks == 85
+                     select new Student
+                         {
+                             sname = s.sname
+                         }).ToList();
+
+        adtquery4 = (from s in _db.std
+                     where s.marks > 0
+                     select new Student
+                         {
+                             sname = s.sname
+                         }).ToList();
+
+
+        
+    }
+
+    
+
+}

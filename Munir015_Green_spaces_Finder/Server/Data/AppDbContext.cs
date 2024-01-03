@@ -17,5 +17,13 @@ namespace Munir015_Green_spaces_Finder.Server.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Admin> Admins { get; set; }
+
+
+        //quiz models
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Course> Courses { get; set; }
+
+
     }
 }
