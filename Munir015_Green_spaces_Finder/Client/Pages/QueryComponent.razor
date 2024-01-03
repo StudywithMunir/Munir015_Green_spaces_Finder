@@ -80,7 +80,7 @@
                          }).ToList();
 
         adtquery3 = (from s in _db.std
-                     where s.marks < 50 and s.marks == 85
+                     where s.marks >= 50 && s.marks <= 85
                      select new Student
                          {
                              sname = s.sname
